@@ -1,0 +1,24 @@
+name: Deploy Workflow
+
+on:
+  push:
+    branches:
+      - main   # For production deployment
+      - staging  # For staging deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up environment (optional)
+        run: |
+          echo "Setting up environment"
+
+      - name: Deploy to environment
+        run: ./deploy.sh
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
